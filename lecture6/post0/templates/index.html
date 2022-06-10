@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>My webpage</title>
+        <style>
+            .posts {
+                background-color: #77dd11;
+                padding:20px;
+                margin:10px;
+            }
+
+            body{
+                padding-bottom: 50px;
+            }
+        </style>
+        <script>
+            //start with first post
+            let counter = 1;
+            //load post 20 at a time 
+            const quantity = 20;
+            //when dom loads,render the first 20 posts
+            document.addEventListener('DOMContentLoaded',load);
+            //if scrolled to bottom load the next page
+            window.onscroll = ()=>{
+                if(window.innerHeight + window.scrollY >= document.body.offsetHeight){
+                    load();
+                }
+                    
+            };
+
+                ///load next set of posts
+            function load(){
+                //set start and end post numbers,and update counter
+                const start = counter;
+                const end = start + quantity -1;
+                counter = end + 1;
+
+                //open new request to get new posts. 
+                const request = new XMLHttpRequest();
+                request.open('POST',"/posts");
+                request.onload = ()=>{
+                    const data = JSON.parse(request.responseText);
+                    data.forEach(add_post);
+                };
+                //add start and end points to request
+                const data=new FormData();
+                data.append('start',start);
+                data.append('end',end);
+
+                //send request 
+                request.send(data);
+            }
+
+            //add a new post with given contents to DOM
+            function add_post(contents){
+
+                //create new post
+                const post = document.createElement('div');
+                post.className = 'posts';
+                post.innerHTML = contents;
+
+                //add post to DOM 
+                document.querySelector('#posts').append(post);
+            };
+            
+        </script>
+        
+    </head>
+    <body>
+        <div id="posts" >
+
+        </div>
+    </body>
+</html>

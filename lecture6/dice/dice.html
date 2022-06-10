@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <script>
+            //template for roll results
+            const template = Handlebars.compile("<li>You rolled a {{ value }}</li>");
+
+            document.addEventListener('DOMContentLoaded',()=>{
+                document.querySelector('#roll').onclick = ()=>{
+                    //generate a random rolls 
+                    const roll = Math.floor((Math.random() * 6) + 1);
+                    //add roll result to DOM
+                    const content = template({'value':roll})
+                    document.querySelector('#rolls').innerHTML += content;
+                };
+            });
+
+
+        </script>
+    </head>
+    <body>
+        <button id="roll">Roll</button>
+        <ul id="rolls">
+
+        </ul>
+    </body>
+</html>

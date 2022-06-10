@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>Welcome to my webpage</title>
+    <script>
+        //Fuction to say hello
+        let counter = 0;
+        function count(){
+            counter++;
+            document.querySelector('#counter').innerHTML = counter;
+        }
+        function reset(){
+            counter = 0;
+            document.querySelector('#counter').innerHTML = counter;
+        }
+    </script>
+</head>
+<body>
+    <h1 id="counter">0</h1>
+    <button onclick="count()">Click Here</button>
+    <button onclick="reset()">Reset the counter</button>
+</body>
+</html> 
